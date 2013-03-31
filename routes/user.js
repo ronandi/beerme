@@ -12,10 +12,18 @@ exports.list = function(req, res){
 
 exports.createUser = function(req, res) {
     if(req.body.id === undefined){
-        res.send("Error: No id specified");
+        res.send({error: "No id specified"});
     }
     else{
-        db.collection('users').insert({id: req.body.id});
-        res.send("Sucessfully created new user");
+    	db.collection('users').findOne({id: req.body.id }, function(err, post){
+    		if(post === undefined){
+    			db.collection('users').insert({id: req.body.id});
+        		res.send("Sucessfully created new user");
+    		}
+    		else{
+    			res.send({error: "user already exists"});
+    		}
+    	})
+        
     }
 }
