@@ -6,9 +6,6 @@
 var Mongolian = require('mongolian');
 var db = new Mongolian().db('beerme-db');
 
-exports.list = function(req, res){
-    res.send(req.query);
-};
 
 exports.getUser = function(req, res) {
     if (req.query.id === undefined) {
