@@ -7,11 +7,9 @@ var express = require('express')
 , routes = require('./routes')
 , user = require('./routes/user')
 , http = require('http')
-, path = require('path')
-, db = require('./database');
+, path = require('path');
 
 var app = express();
-db.init();
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
@@ -30,7 +28,7 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
-app.get('/users', user.list);
+app.get('/users', user.getUser);
 app.post('/users', user.createUser);
 
 http.createServer(app).listen(app.get('port'), function(){

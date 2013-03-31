@@ -10,6 +10,20 @@ exports.list = function(req, res){
     res.send(req.query);
 };
 
+exports.getUser = function(req, res) {
+    if (req.query.id === undefined) {
+        res.send("Error: No id specified");
+    } else {
+        db.collection('users').findOne({ id: req.query.id }, function(user) {
+            if (!user) {
+                res.send({ error: "User with that id does not exist" });
+            } else {
+                res.send(user);
+            }
+        });
+    }
+}
+
 exports.createUser = function(req, res) {
     if(req.body.id === undefined){
         res.send({error: "No id specified"});
@@ -23,7 +37,6 @@ exports.createUser = function(req, res) {
     		else{
     			res.send({error: "user already exists"});
     		}
-    	})
-        
+    	});  
     }
 }
