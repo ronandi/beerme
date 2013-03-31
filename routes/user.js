@@ -4,5 +4,8 @@
  */
 
 exports.list = function(req, res){
-  res.send("respond with a resource");
+    req.query.id
 };
+
+exports.createUser = function(req, res) {
+}
