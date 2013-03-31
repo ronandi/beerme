@@ -8,23 +8,10 @@ var express = require('express')
 , user = require('./routes/user')
 , http = require('http')
 , path = require('path')
-, Mongolian = require('mongolian');
+, db = require('./database');
 
-var DB_HOST = 'localhost';
-var server = new Mongolian({
-    log: {
-        debug: function(message) {},
-        info: function(message) {},
-        warn: function(message) {
-            console.log(message);
-        },
-        error: function(message) {
-            console.log(message);
-        }
-    }
-});
-var db = server.db('beerme-db');
 var app = express();
+db.init();
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
