@@ -1,28 +1,27 @@
-
 /*
  * GET beers
  */
-var KEY = "7ba3a56166ec88f283a107f9b8f070d8";
+var config = require('../config');
 var Brewery = require('brewery-api-node');
-var brewery = new Brewery(KEY);
+var brewery = new Brewery(config.breweryApiKey);
 
 module.exports = function(db) {
     return {
         getBeer: function(req, res){
-            if(req.query.beer === undefined){
+            if(req.query.beer === undefined) {
                 res.send({error: "no param provided"});
             }
             else {
-                db.collection('beers').find({ $regex: req.query.beer, $options: 'i'}).toArray(function(beers){
-                    if(!beers){
-                        //query brewery db with same search
-                        brewery.searchBeer(req.query.beer, function(err, val){
-                            if(err){
+                db.collection('beers').find({ $regex: req.query.beer, $options: 'i'}).toArray(function(beers) j{
+                    if(!beers) {
+                        //query brewery db with same search since we dont have
+                        brewery.searchBeer(req.query.beer, function(err, val) {
+                            if(err) {
                                 console.log(err);
-                                res.send({error: "problem searching breweryDB"});
+                                res.send({ error: "problem searching breweryDB" });
                             }
                             var valArr = [];
-                            val.forEach(function(value, index){
+                            val.forEach(function(value, index) {
                                 var info = {
                                     name: value.name,
                                     description: value.description,

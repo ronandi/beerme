@@ -1,4 +1,3 @@
-
 /*
  * GET users listing.
  */
@@ -19,6 +18,7 @@ module.exports = function(db) {
                 });
             }
         },
+
         createUser: function(req, res) {
             if(req.body.id === undefined){
                 res.send({error: "No id specified"});
