@@ -5,12 +5,13 @@
 
 var express = require('express')
 , routes = require('./routes')
-, user = require('./routes/user')
-, beers = require('./routes/beers')
 , http = require('http')
-, path = require('path');
-
+, path = require('path')
+, Mongolian = require('mongolian');
 var app = express();
+var db = new Mongolian().db('beerme-db');
+var user = require('./routes/user')(db)
+, beers = require('./routes/beers')(db);
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
