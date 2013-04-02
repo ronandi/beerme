@@ -4,10 +4,9 @@
 
 module.exports = function(db) {
     return {
-
         getUser: function(req, res) {
             if (req.query.id === undefined) {
-                res.send("Error: No id specified");
+                res.send({ error: "No id specified" });
             } else {
                 db.collection('users').findOne({ id: req.query.id }, { _id:0 }, function(err, user) {
                     if (!user) {
@@ -21,16 +20,16 @@ module.exports = function(db) {
 
         createUser: function(req, res) {
             if(req.body.id === undefined){
-                res.send({error: "No id specified"});
+                res.send({ error: "No id specified" });
             }
             else{
-                db.collection('users').findOne({id: req.body.id }, function(err, post){
-                    if(post === undefined){
-                        db.collection('users').insert({id: req.body.id});
+                db.collection('users').findOne({ id: req.body.id }, function(err, post) {
+                    if(post === undefined) {
+                        db.collection('users').insert({ id: req.body.id });
                         res.send("Sucessfully created new user");
                     }
-                    else{
-                        res.send({error: "user already exists"});
+                    else {
+                        res.send({ error: "user already exists" });
                     }
                 });  
             }
